@@ -1,0 +1,134 @@
+<!doctype html>
+<!--
+THESIS: Ein nutzbarer Reisebegleiter, kein Reiseprospekt. Der ausgewählte Tag
+und seine nächste Handlung führen; Route und Empfehlungen bleiben unterscheidbar.
+OWN-WORLD: Heller mineralischer Grund, tiefes Petrol, limettengrüne Wegmarken;
+Systemschrift, offene Listen und eine durchgehende Reiselinie.
+STORY: Tag wählen, Aufenthalt verstehen, Flug oder Navigation öffnen.
+FIRST VIEWPORT: Kompakter Reisekopf, horizontale Navigation, Tageswahl,
+darunter ein petrolfarbenes Tagesblatt neben der Liste der nächsten Schritte.
+SMARTPHONE: Navigation unten im Daumenbereich, Tageswahl klebt oben,
+Tagesblatt per Wischgeste wechselbar.
+KARTE: Eigene Offline-SVG der Reise, nummerierte Unterkünfte, keine Kartenkacheln.
+FORM: Aufgabenorientiertes Tagesblatt mit chronologischer Reiselinie,
+entsprechend dem freigegebenen ruhigen, mobilen Reisebegleiter.
+-->
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#123f43">
+  <meta name="description" content="Indienreise 2026: Tagesplan, Hotels, Flüge und persönliche Reiseempfehlungen von Goa bis Kerala.">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <title>Indien 2026 · Unser Reisebegleiter</title>
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./data.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Zum Inhalt</a>
+  <header class="masthead">
+    <a class="brand" href="#heute" aria-label="Indienreise: Tagesplan"><img src="./icon.svg" width="44" height="44" alt=""><span>Indien <strong>2026</strong></span></a>
+    <div class="trip-dates"><span class="long-date">03. Dezember 2026 — 01. Januar 2027</span><span class="short-date" aria-hidden="true">03.12.26 – 01.01.27</span><span class="places">Goa · Bengaluru · Kerala</span></div>
+    <div class="connection"><span id="connection">Verbindungsstatus wird geprüft</span><small id="offline-status">Offline-Speicher wird geprüft</small></div>
+  </header>
+  <svg class="icon-sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-day" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/><circle cx="12" cy="15" r="1.6" fill="currentColor"/></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="6" r="2.2"/><path d="M8.2 18h6.3a3.5 3.5 0 0 0 0-7h-5a3.5 3.5 0 0 1 0-7h6.3"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="M3.5 6.5 9 4l6 2.5L20.5 4v13.5L15 20l-6-2.5-5.5 2.5zM9 4v13.5M15 6.5V20"/></symbol>
+    <symbol id="i-hotel" viewBox="0 0 24 24"><path d="M3 19.5V7M3 15h18v4.5M3 11.5h7.5V15M21 15v-2a3 3 0 0 0-3-3h-7.5"/><circle cx="6.5" cy="9.5" r="1.6"/></symbol>
+    <symbol id="i-flight" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></symbol>
+    <symbol id="i-guide" viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21z"/><circle cx="12" cy="10" r="2.3"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5.5" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="18.5" cy="12" r="1.6" fill="currentColor"/></symbol>
+  </svg>
+  <nav class="navigation" aria-label="Hauptnavigation">
+    <a href="#heute" aria-current="page"><svg aria-hidden="true" focusable="false"><use href="#i-day"/></svg><span class="nav-long">Tagesplan</span><span class="nav-short" aria-hidden="true">Tag</span></a>
+    <a href="#route"><svg aria-hidden="true" focusable="false"><use href="#i-route"/></svg><span class="nav-long">Reiseroute</span><span class="nav-short" aria-hidden="true">Route</span></a>
+    <a href="#karte"><svg aria-hidden="true" focusable="false"><use href="#i-map"/></svg><span class="nav-long">Karte</span><span class="nav-short" aria-hidden="true">Karte</span></a>
+    <a href="#hotels"><svg aria-hidden="true" focusable="false"><use href="#i-hotel"/></svg><span class="nav-long">Unterkünfte</span><span class="nav-short" aria-hidden="true">Hotels</span></a>
+    <a href="#fluege"><svg aria-hidden="true" focusable="false"><use href="#i-flight"/></svg><span class="nav-long">Flüge</span><span class="nav-short" aria-hidden="true">Flüge</span></a>
+    <a href="#guide"><svg aria-hidden="true" focusable="false"><use href="#i-guide"/></svg><span class="nav-long">Ortsguide</span><span class="nav-short" aria-hidden="true">Guide</span></a>
+    <a href="#organisation" class="nav-secondary">Organisation</a>
+    <a href="#privat" class="nav-secondary">Privatdaten</a>
+    <button type="button" class="nav-more" id="nav-more" aria-expanded="false" aria-controls="more-menu"><svg aria-hidden="true" focusable="false"><use href="#i-more"/></svg><span>Mehr</span></button>
+  </nav>
+  <div id="more-menu" class="more-menu" hidden>
+    <a href="#organisation">Organisation<small>Aufgaben & Packliste</small></a>
+    <a href="#privat">Privatdaten<small>Buchungscodes lokal importieren</small></a>
+    <button type="button" class="print-button">Reiseplan drucken<small>Öffentliche Druckansicht</small></button>
+  </div>
+  <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+  <main id="main" tabindex="-1">
+    <noscript>Bitte JavaScript aktivieren, um den Reiseplan zu öffnen. Es werden keine Daten an einen Server gesendet.</noscript>
+    <section id="heute" class="view" aria-labelledby="today-title">
+      <div class="section-heading"><div><h1 id="today-title">Ein guter Tag in Indien.</h1><p id="trip-context">Euer Plan vom ersten Abflug bis zur Heimreise.</p></div><button type="button" class="secondary" id="jump-today">Zum heutigen Reisetag</button></div>
+      <div class="date-controls">
+        <button type="button" id="previous-day" aria-label="Vorheriger Reisetag">←</button>
+        <div class="date-field"><label for="travel-date">Reisetag</label><input id="travel-date" type="date" min="2026-12-03" max="2027-01-01" value="2026-12-03"><span id="day-position" aria-live="polite"></span></div>
+        <button type="button" id="next-day" aria-label="Nächster Reisetag">→</button>
+      </div>
+      <p class="swipe-hint">Tipp: Auf dem Tagesblatt nach links oder rechts wischen, um den Tag zu wechseln.</p>
+      <div id="day-content"></div>
+    </section>
+    <section id="route" class="view" aria-labelledby="route-title" hidden>
+      <div class="section-heading"><div><h1 id="route-title">Eine Reise, viele Perspektiven.</h1><p>Alle 30 Reisetage. Empfehlungen sind flexibel, Buchungen nicht.</p></div><button type="button" class="secondary print-button">Reiseplan drucken</button></div>
+      <div class="route-strip" aria-label="Reiseabfolge"><span>Goa</span><span>Bengaluru</span><span>Kochi</span><span>Munnar</span><span>Periyar</span><span>Backwaters</span><span>Marari</span></div>
+      <div id="route-content"></div>
+    </section>
+    <section id="karte" class="view" aria-labelledby="map-title" hidden>
+      <div class="section-heading"><div><h1 id="map-title">Die ganze Reise auf einen Blick.</h1><p>Neun Übernachtungsstationen von Goa bis zum Flughafen Kochi. Punkt antippen für Details.</p></div></div>
+      <div class="map-layout">
+        <div class="map-figures">
+          <figure class="trip-map" id="map-overview"></figure>
+          <figure class="trip-map" id="map-kerala"></figure>
+          <p class="map-legend"><span class="legend-ground">Fahrt</span><span class="legend-flight">Flug</span><span class="legend-airport">Flughafen</span></p>
+        </div>
+        <div>
+          <p class="callout">Schematische Offline-Karte: Positionen ungefähr, Linien zeigen die Reihenfolge, keine Straßen. Für Navigation den Kartenlink der Station öffnen.</p>
+          <ol class="station-list" id="station-list"></ol>
+        </div>
+      </div>
+    </section>
+    <section id="hotels" class="view" aria-labelledby="hotels-title" hidden>
+      <div class="section-heading"><div><h1 id="hotels-title">Ankommen & bleiben.</h1><p>Alle Aufenthalte bestätigt. Buchungsdetails, die nicht vorliegen, bleiben offen.</p></div></div>
+      <div class="callout">Kartensuchen sind Orientierungshilfen, keine verifizierten Hoteleinfahrten. Vor der Fahrt das konkrete Ziel mit Unterkunft oder Fahrer abgleichen.</div>
+      <div id="hotels-content"></div>
+    </section>
+    <section id="fluege" class="view" aria-labelledby="flights-title" hidden>
+      <div class="section-heading"><div><h1 id="flights-title">Von Abflug bis Ankunft.</h1><p>Alle sieben Flugsegmente · Zeiten jeweils am genannten Ort.</p></div></div>
+      <div class="callout warning">Buchungsstand, kein Live-Flugstatus. Flugzeiten, Terminals und Gepäck vor Abflug bei der Airline erneut prüfen. Mumbai-Ankunft ist im Änderungsbeleg nicht eindeutig.</div>
+      <div id="flights-content"></div>
+    </section>
+    <section id="guide" class="view" aria-labelledby="guide-title" hidden>
+      <div class="section-heading"><div><h1 id="guide-title">Mehr vom Ort mitnehmen.</h1><p>Kultur, Natur, gutes Essen. Ein Vorschlag ist noch kein Termin.</p></div></div>
+      <label class="select-label" for="guide-place">Ort auswählen<select id="guide-place"></select></label>
+      <div id="guide-content"></div>
+      <details class="practical"><summary>Praktisch unterwegs: Zeit, Sicherheit & Gesundheit</summary><div id="practical-content"></div></details>
+    </section>
+    <section id="organisation" class="view" aria-labelledby="organisation-title" hidden>
+      <div class="section-heading"><div><h1 id="organisation-title">Der Kopf bleibt frei.</h1><p>Aufgaben und Packliste werden nur auf diesem Gerät gespeichert.</p></div><button type="button" class="secondary print-button">Reiseplan drucken</button></div>
+      <p class="callout">Ohne Cloud-Synchronisierung: Häkchen sind auf anderen Geräten nicht automatisch vorhanden. Im Privatmodus oder nach dem Löschen von Browserdaten können sie verloren gehen.</p>
+      <div class="checklist-layout"><section aria-labelledby="tasks-title"><h2 id="tasks-title">Vor der Reise klären</h2><div id="tasks-content"></div></section><section aria-labelledby="packing-title"><h2 id="packing-title">Mitnehmen</h2><div id="packing-content"></div></section></div>
+      <details class="practical"><summary>Quellen & Datenstand</summary><div id="sources-content"></div></details>
+    </section>
+    <section id="privat" class="view" aria-labelledby="private-title" hidden>
+      <div class="section-heading"><div><h1 id="private-title">Eure Daten bleiben bei euch.</h1><p>Buchungscodes, Reisende und Tickets aus einer separaten Datei importieren.</p></div></div>
+      <div class="privacy-layout"><div>
+        <h2>Nur auf diesem Gerät</h2>
+        <p>Die Privatdatei wird im Browser gelesen, nicht hochgeladen. Sie gehört <strong>nicht ins GitHub-Repository</strong>. Auf jedem Gerät separat importieren und nur auf vertrauenswürdigen Geräten verwenden.</p>
+        <p>Die Speicherung ist <strong>nicht verschlüsselt</strong>. Andere Personen mit Zugriff auf dieses Browserprofil oder Skripte derselben Website könnten die Daten lesen. Bei gemeinsam genutzten Geräten nicht importieren.</p>
+        <label class="file-label" for="private-file">Private JSON-Datei auswählen<input type="file" id="private-file" accept=".json,application/json"></label>
+        <button type="button" id="delete-private" class="secondary" disabled>Lokale Privatdaten löschen</button>
+        <p id="private-status" role="status" aria-live="polite">Keine Privatdaten geladen.</p>
+        <p>Private Daten erscheinen ausschließlich hier, niemals in der öffentlichen Druckansicht. Externe Links werden nur auf bewussten Klick geöffnet; es gibt keine eingebetteten Karten oder Analysewerkzeuge.</p>
+      </div><aside><h2>Offline vorbereiten</h2><ol><li>Die Website über HTTPS vollständig laden.</li><li>Auf die Meldung „Offline bereit“ warten.</li><li>Bei Bedarf die Privatdatei importieren.</li><li>Einmal im Flugmodus erneut öffnen und prüfen.</li></ol><p>Live-Karten und fremde Websites benötigen weiterhin Internet. Der Browser kann lokale Speicher unter Umständen löschen. Wichtige Originaldokumente zusätzlich sicher mitführen.</p><button type="button" id="refresh-offline" class="secondary">Offline-Stand aktualisieren</button></aside></div>
+      <div id="private-content" class="private-only"></div>
+    </section>
+  </main>
+  <footer><span>Indien 2026 · Für unterwegs gemacht.</span><span>Planungsstand 18.10.2026 · Keine Live-Daten</span></footer>
+  <div id="print-content" aria-hidden="true"></div>
+</body>
+</html>

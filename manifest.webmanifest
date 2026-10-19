@@ -1,0 +1,12 @@
+{
+  "name": "Indien 2026 – Unser Reisebegleiter",
+  "short_name": "Indien 2026",
+  "lang": "de",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f6f3",
+  "theme_color": "#123f43",
+  "icons": [{"src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"}]
+}
